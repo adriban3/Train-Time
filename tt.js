@@ -2,7 +2,9 @@ var trainTime = {
 
     database: firebase.database(),
 
-    trainInput: function(event) {
+    i: 0,
+
+    trainInput: function(event, i) {
         event.preventDefault();
 
         var tntm = $("#tntm").val().trim();
@@ -10,12 +12,13 @@ var trainTime = {
         var fitt = $("#fitt").val().trim();
         var freq = $("#freq").val().trim();
 
-        this.database.ref().push({
+        this.database.ref().child("train" + i).set({
             trainTime: tntm,
             destination: dest,
             firstTrainTime: fitt,
             frequency: freq, 
         })
+        this.i++;
     },
 
     trainSearch: function(event) {
@@ -32,6 +35,6 @@ var trainTime = {
     }
 }
 
-$(document).on("click", "#submit", function(e) {trainTime.trainInput(e)});
+$(document).on("click", "#submit", function(e) {trainTime.trainInput(e, trainTime.i)});
 
 $(document).on("click", "#search", function(e) {trainTime.trainSearch(e)})
