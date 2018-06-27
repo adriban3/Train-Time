@@ -7,13 +7,12 @@ var trainTime = {
     trainInput: function(event, i) {
         event.preventDefault();
 
-        var tntm = $("#tntm").val().trim();
+        var tnnm = $("#tnnm").val().trim();
         var dest = $("#dest").val().trim();
         var fitt = $("#fitt").val().trim();
         var freq = $("#freq").val().trim();
 
-        this.database.ref().child("train" + i).set({
-            trainTime: tntm,
+        this.database.ref().child(tnnm).set({
             destination: dest,
             firstTrainTime: fitt,
             frequency: freq, 
@@ -24,7 +23,6 @@ var trainTime = {
     trainSearch: function(event) {
         event.preventDefault();
 
-        var criteria = $("#dpdn").val().trim();
         var value = $("#srch").val().trim();
 
         this.database.ref().once("value").then(function(snapshot){
