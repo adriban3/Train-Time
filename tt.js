@@ -16,7 +16,22 @@ var trainTime = {
             firstTrainTime: fitt,
             frequency: freq, 
         })
+    },
+
+    trainSearch: function(event) {
+        event.preventDefault();
+
+        var criteria = $("#dpdn").val().trim();
+        var value = $("#srch").val().trim();
+
+        this.database.ref().once("value").then(function(snapshot){
+            console.log(snapshot.val());
+        })
+
+
     }
 }
 
 $(document).on("click", "#submit", function(e) {trainTime.trainInput(e)});
+
+$(document).on("click", "#search", function(e) {trainTime.trainSearch(e)})

@@ -10,25 +10,47 @@
 </head>
 <body>
 
-    <form>
+    <form id="push" style="margin-bottom: 5%;">
         <div class="form-group">
-            <label for="tn">Train Name</label>
+            <label for="tntm">Train Name</label>
             <input type="text" class="form-control" id="tntm" placeholder="Train Name">
         </div>
         <div class="form-group">
-            <label for="d">Destination</label>
+            <label for="dest">Destination</label>
             <input type="text" class="form-control" id="dest" placeholder="Destination">
         </div>
         <div class="form-group">
-            <label for="ftt">First Train Time</label>
+            <label for="fitt">First Train Time</label>
             <input type="time" class="form-control" id="fitt" placeholder="First Train Time">
         </div>
         <div class="form-group">
-            <label for="f">Frequency</label>
+            <label for="freq">Frequency</label>
             <input type="number" class="form-control" id="freq" placeholder="Frequency">
         </div>
         <button type="submit" id="submit" class="btn btn-primary">Submit</button>
     </form>
+
+    <form id="pull" style="margin-bottom: 5%;">
+        <div class="form-group">
+            <label for="dpdn">Search By</label>
+            <select class="form-control" id="dpdn">
+            <option id="trno">Train Name</option>
+            <option id="dsto">Destination</option>
+            <option id="ftto">First Train Time</option>
+            <option id="frqo">Frequency</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="srch">Search</label>
+            <input type="search" class="form-control" id="srch" placeholder="Search">
+        </div>
+        <button type="search" id="search" class="btn btn-primary">Search</button>
+    </form>
+
+    <div class="form-group">
+        <label for="info">Search Results</label>
+        <textarea class="form-control" id="info" rows="4"></textarea>
+    </div>
 
     <!--cdns-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.js" crossorigin="anonymous"></script>
