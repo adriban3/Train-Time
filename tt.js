@@ -52,7 +52,13 @@ var trainTime = {
 
             if (snapshot.val().hasOwnProperty(srch)) {
                 var trainObj = snapshot.val()[srch];
-                $("#info").html("Destination: " + trainObj.destination + "&#13;&#10;" + "First Train Time: " + trainObj.firstTrainTime + "&#13;&#10;" + "Frequncy: " + trainObj.frequency);
+                $("#info").html("Train: " + srch + "&#13;&#10;Destination: " + trainObj.destination + "&#13;&#10;First Train Time: " + trainObj.firstTrainTime + "&#13;&#10;Frequency: " + trainObj.frequency);
+                var ftt = moment(trainObj.firstTrainTime, "H:mm");
+                console.log(ftt);
+                var now = moment();
+                console.log(now);
+                var diff = now.diff(ftt, "hours", true);
+                console.log(diff);
             }
             
             else {
