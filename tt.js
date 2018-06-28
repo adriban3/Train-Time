@@ -4,12 +4,25 @@ var trainTime = {
 
     i: 0,
 
+    dropdowns: function() {
+        for (var i=1; i<61; i++) {
+            $("#freq").append("<option>" + i + "</option>");
+            $("#fttm").append("<option>" + i + "</option");
+        }
+
+        for (var i=1; i<25; i++) {
+            $("#ftth").append("<option>" + i + "</option>");
+        }
+    },
+
     trainInput: function(event, i) {
         event.preventDefault();
 
         var tnnm = $("#tnnm").val().trim().toLowerCase();
         var dest = $("#dest").val().trim();
-        var fitt = $("#fitt").val().trim();
+        var ftth = $("#ftth").val().trim();
+        var fttm = $("#fttm").val().trim();
+        var fitt = ftth + ":" + fttm;
         var freq = $("#freq").val().trim();
 
         if (tnnm && dest && fitt && freq) {
@@ -46,10 +59,10 @@ var trainTime = {
                 alert("There is no record of this train");
             }
         })
-
-
     }
-}
+};
+
+$(document).ready(function() {trainTime.dropdowns()});
 
 $(document).on("click", "#submit", function(e) {trainTime.trainInput(e, trainTime.i)});
 

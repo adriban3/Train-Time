@@ -13,19 +13,25 @@
     <form id="push" style="margin-bottom: 5%;">
         <div class="form-group">
             <label for="tnnm">Train Name</label>
-            <input type="text" class="form-control" id="tnnm" placeholder="Train Name">
+            <input type="text" class="form-control" id="tnnm" placeholder="Andrew's Train">
         </div>
         <div class="form-group">
             <label for="dest">Destination</label>
-            <input type="text" class="form-control" id="dest" placeholder="Destination">
+            <input type="text" class="form-control" id="dest" placeholder="Andrew Town, GA">
         </div>
         <div class="form-group">
-            <label for="fitt">First Train Time</label>
-            <input type="time" class="form-control" id="fitt" placeholder="First Train Time">
+            <label for="ftth">First Train Time (hour)</label>
+            <select class="form-control" id="ftth"></select>
+            <!-- <input type="time" class="form-control" id="fitt" placeholder="13"> -->
         </div>
         <div class="form-group">
-            <label for="freq">Frequency</label>
-            <input type="number" class="form-control" id="freq" placeholder="Frequency">
+            <label for="fttm">First Train Time (minute)</label>
+            <select class="form-control" id="fttm"></select>
+            <!-- <input type="time" class="form-control" id="fitt" placeholder="33"> -->
+        </div>
+        <div class="form-group">
+            <label for="freq">Frequency (minutes)</label>
+            <select class="form-control" id="freq"></select>
         </div>
         <button type="submit" id="submit" class="btn btn-primary">Submit</button>
     </form>
