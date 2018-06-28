@@ -39,7 +39,7 @@ var trainTime = {
 
             if (snapshot.val().hasOwnProperty(srch)) {
                 var trainObj = snapshot.val()[srch];
-                $("#info").html(trainObj.destination + '<br>' + trainObj.firstTrainTime + '<br>' + trainObj.frequency);
+                $("#info").html("Destination: " + trainObj.destination + "&#13;&#10;" + "First Train Time: " + trainObj.firstTrainTime + "&#13;&#10;" + "Frequncy: " + trainObj.frequency);
             }
             
             else {
