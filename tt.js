@@ -52,10 +52,21 @@ var trainTime = {
 
             if (snapshot.val().hasOwnProperty(srch)) {
                 var trainObj = snapshot.val()[srch];
-                $("#info").html("Train: " + srch + "&#13;&#10;Destination: " + trainObj.destination + "&#13;&#10;First Train Time: " + trainObj.firstTrainTime + "&#13;&#10;Frequency: " + trainObj.frequency);
                 var ftt = moment(trainObj.firstTrainTime, "H:mm");
                 var now = moment();
-                var diff = now.diff(ftt, "hours", true);
+                var diff = now.diff(ftt, "minutes", true);
+                var nextTrain = diff/parseInt(trainObj.frequency);
+                console.log(nextTrain); //this is returning NaN for some reason
+                var diffRound = Math.floor(diff);
+                var diffDiff = diff - diffRound;
+                if (diffDiff != 0) {
+                    //need to fix this so that it shows only: Next train arrives in ............
+                    $("#info").html("Train: " + srch + "&#13;&#10;Destination: " + trainObj.destination + "&#13;&#10;First Train Time: " + trainObj.firstTrainTime + "&#13;&#10;Frequency: " + trainObj.frequency);
+                }
+
+                else {
+
+                }
             }
             
             else {
