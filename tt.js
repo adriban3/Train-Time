@@ -92,7 +92,7 @@ var trainTime = {
 
     trainSearch: function(event) {
         event.preventDefault();
-        // clearInterval(int);
+        clearInterval(trainTime.int);
 
         var srch = $("#srch").val().trim().toLowerCase();
 
@@ -107,7 +107,7 @@ var trainTime = {
                 var nextTrain = ftt.add(trainhrs, 'm');
                 var fn = nextTrain.fromNow();
                 $("#info").html("Train: " + srch + "&#13;&#10;Destination: " + trainObj.destination + "&#13;&#10;First Train Time: " + trainObj.firstTrainTime + "&#13;&#10;Frequency: " + trainObj.frequency + "&#13;&#10;Next Train arrives " + fn);
-                int = setInterval(function() {trainTime.update(trainObj)}, 1000*60)    
+                trainTime.int = setInterval(function() {trainTime.update(trainObj)}, 1000*3)    
             }
             
             else {
