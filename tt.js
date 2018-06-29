@@ -6,11 +6,13 @@ var trainTime = {
 
     dropdowns: function() {
         for (var i=1; i<61; i++) {
+            if (i<60) {
+                $("#fttm").append("<option>" + i + "</option");
+            }
             $("#freq").append("<option>" + i + "</option>");
-            $("#fttm").append("<option>" + i + "</option");
         }
 
-        for (var i=1; i<25; i++) {
+        for (var i=1; i<24; i++) {
             $("#ftth").append("<option>" + i + "</option>");
         }
     },
@@ -53,20 +55,12 @@ var trainTime = {
             if (snapshot.val().hasOwnProperty(srch)) {
                 var trainObj = snapshot.val()[srch];
                 var ftt = moment(trainObj.firstTrainTime, "H:mm");
-                var now = moment();
-                var diff = now.diff(ftt, "minutes", true);
-                var nextTrain = diff/parseInt(trainObj.frequency);
-                console.log(nextTrain); //this is returning NaN for some reason
-                var diffRound = Math.floor(diff);
-                var diffDiff = diff - diffRound;
-                if (diffDiff != 0) {
-                    //need to fix this so that it shows only: Next train arrives in ............
-                    $("#info").html("Train: " + srch + "&#13;&#10;Destination: " + trainObj.destination + "&#13;&#10;First Train Time: " + trainObj.firstTrainTime + "&#13;&#10;Frequency: " + trainObj.frequency);
-                }
-
-                else {
-
-                }
+                var diff = moment().diff(ftt, "minutes", true);
+                var numTrains = Math.ceil(diff/parseInt(trainObj.frequency));
+                var trainhrs = numTrains*trainObj.frequency;
+                var nextTrain = ftt.add(trainhrs, 'm');
+                var fn = nextTrain.fromNow();
+                $("#info").html("Train: " + srch + "&#13;&#10;Destination: " + trainObj.destination + "&#13;&#10;First Train Time: " + trainObj.firstTrainTime + "&#13;&#10;Frequency: " + trainObj.frequency + "&#13;&#10;Next Train arrives " + fn);
             }
             
             else {
