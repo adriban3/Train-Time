@@ -73,16 +73,27 @@ var trainTime = {
         var fitt = ftth + ":" + fttm;
         var freq = $("#freq").val().trim();
 
-        if (tnnm && dest && fitt && freq) {
-            this.database.ref().child(tnnm).set({
-                destination: dest,
-                firstTrainTime: fitt,
-                frequency: freq, 
+        if (tnnm && dest && fitt && freq) {  
+                
+            this.database.ref().once("value").then(function(snapshot) {
+
+                if (snapshot.val().hasOwnProperty(tnnm)) {
+                    alert("This train already exists, please search below");
+                }
+
+                else {
+
+                    trainTime.database.ref().child(tnnm).set({
+                        destination: dest,
+                        firstTrainTime: fitt,
+                        frequency: freq, 
+                    })
+                    $("#tnnm").val('');
+                    $("#dest").val('');
+                    $("#fitt").val('');
+                    $("#freq").val('');
+                }
             })
-            $("#tnnm").val('');
-            $("#dest").val('');
-            $("#fitt").val('');
-            $("#freq").val('');
         }
 
         else {
