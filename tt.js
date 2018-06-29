@@ -2,22 +2,51 @@ var trainTime = {
 
     database: firebase.database(),
 
-    i: 0,
+    int: "",
 
-    auth: function() {
+    newUser: function(e) {
+        e.preventDefault();
         //need to create sign-in page separate from regular index page?  Pass email and password from this form into these functions.
+        var email = $("#emla").val();
+        var password = $("#pass").val();
+
         firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
             // ...
+            if (errorCode == 'auth/weak-password') {
+                alert('The password is too weak.');
+              } 
+              
+            else {
+                alert(errorMessage);
+              }
+
+            console.log(error);
           });
+        },
+
+    signIn: function(e) {
+        e.preventDefault();
+        var email = $("#emla2").val();
+        var password = $("#pass2").val();
 
         firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
         // ...
+        if (errorCode === 'auth/wrong-password') {
+            alert('Wrong password.');
+          } 
+          
+        else {
+            alert(errorMessage);
+          }
+
+        console.log(error);
+        document.getElementById('quickstart-sign-in').disabled = false;
         });
     },
 
@@ -34,7 +63,7 @@ var trainTime = {
         }
     },
 
-    trainInput: function(event, i) {
+    trainInput: function(event) {
         event.preventDefault();
 
         var tnnm = $("#tnnm").val().trim().toLowerCase();
@@ -50,7 +79,6 @@ var trainTime = {
                 firstTrainTime: fitt,
                 frequency: freq, 
             })
-            this.i++;
             $("#tnnm").val('');
             $("#dest").val('');
             $("#fitt").val('');
@@ -64,6 +92,7 @@ var trainTime = {
 
     trainSearch: function(event) {
         event.preventDefault();
+        // clearInterval(int);
 
         var srch = $("#srch").val().trim().toLowerCase();
 
@@ -78,19 +107,33 @@ var trainTime = {
                 var nextTrain = ftt.add(trainhrs, 'm');
                 var fn = nextTrain.fromNow();
                 $("#info").html("Train: " + srch + "&#13;&#10;Destination: " + trainObj.destination + "&#13;&#10;First Train Time: " + trainObj.firstTrainTime + "&#13;&#10;Frequency: " + trainObj.frequency + "&#13;&#10;Next Train arrives " + fn);
+                int = setInterval(function() {trainTime.update(trainObj)}, 1000*60)    
             }
             
             else {
                 alert("There is no record of this train");
             }
         })
+    },
+
+    update: function(obj) {
+        console.log(obj);
+        var ftt = moment(obj.firstTrainTime, "H:mm");
+        var diff = moment().diff(ftt, "minutes", true);
+        var numTrains = Math.ceil(diff/parseInt(obj.frequency));
+        var trainhrs = numTrains*obj.frequency;
+        var nextTrain = ftt.add(trainhrs, 'm');
+        var fn = nextTrain.fromNow();
+        $("#info").html("Train: " + srch + "&#13;&#10;Destination: " + obj.destination + "&#13;&#10;First Train Time: " + obj.firstTrainTime + "&#13;&#10;Frequency: " + obj.frequency + "&#13;&#10;Next Train arrives " + fn);
     }
 };
 
-$(document).ready(function() {trainTime.auth()});
+$(document).on("click", "#userCreate", function(e) {trainTime.newUser(e)});
+
+$(document).on("click", "#signIn", function(e) {trainTime.signIn(e)})
 
 $(document).ready(function() {trainTime.dropdowns()});
 
-$(document).on("click", "#submit", function(e) {trainTime.trainInput(e, trainTime.i)});
+$(document).on("click", "#submit", function(e) {trainTime.trainInput(e)});
 
-$(document).on("click", "#search", function(e) {trainTime.trainSearch(e)})
+$(document).on("click", "#search", function(e) {trainTime.trainSearch(e, trainTime.int)})
