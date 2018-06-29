@@ -78,7 +78,7 @@ var trainTime = {
             this.database.ref().once("value").then(function(snapshot) {
 
                 if (snapshot.val().hasOwnProperty(tnnm)) {
-                    alert("This train already exists, please search below");
+                    alert("This train already exists, please view entry and update below");
                 }
 
                 else {
@@ -118,7 +118,7 @@ var trainTime = {
                 var nextTrain = ftt.add(trainhrs, 'm');
                 var fn = nextTrain.fromNow();
                 $("#info").html("Train: " + srch + "&#13;&#10;Destination: " + trainObj.destination + "&#13;&#10;First Train Time: " + trainObj.firstTrainTime + "&#13;&#10;Frequency: " + trainObj.frequency + "&#13;&#10;Next Train arrives " + fn);
-                trainTime.int = setInterval(function() {trainTime.update(trainObj)}, 1000*3)    
+                trainTime.int = setInterval(function() {trainTime.dynamic(trainObj)}, 1000*3)    
             }
             
             else {
@@ -127,7 +127,7 @@ var trainTime = {
         })
     },
 
-    update: function(obj) {
+    dynamic: function(obj) {
         console.log(obj);
         var ftt = moment(obj.firstTrainTime, "H:mm");
         var diff = moment().diff(ftt, "minutes", true);
@@ -136,6 +136,14 @@ var trainTime = {
         var nextTrain = ftt.add(trainhrs, 'm');
         var fn = nextTrain.fromNow();
         $("#info").html("Train: " + srch + "&#13;&#10;Destination: " + obj.destination + "&#13;&#10;First Train Time: " + obj.firstTrainTime + "&#13;&#10;Frequency: " + obj.frequency + "&#13;&#10;Next Train arrives " + fn);
+    }, 
+
+    update: function(e) {
+        e.preventDefault();
+    },
+
+    delete: function(e) {
+        e.preventDefault();
     }
 };
 
@@ -147,4 +155,8 @@ $(document).ready(function() {trainTime.dropdowns()});
 
 $(document).on("click", "#submit", function(e) {trainTime.trainInput(e)});
 
-$(document).on("click", "#search", function(e) {trainTime.trainSearch(e, trainTime.int)})
+$(document).on("click", "#search", function(e) {trainTime.trainSearch(e, trainTime.int)});
+
+$(document).on("click", "#update", function(e) {trainTime.update(e)});
+
+$(document).on("click", "#delete"), function(e) {trainTime.delete(e)};

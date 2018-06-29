@@ -12,6 +12,7 @@
 <body>
 
     <form id="push" style="margin-bottom: 5%;">
+        <h1>Add to Or Update Train Schedule</h1>
         <div class="form-group">
             <label for="tnnm">Train Name</label>
             <input type="text" class="form-control" id="tnnm" placeholder="Andrew's Train">
@@ -35,14 +36,17 @@
             <select class="form-control" id="freq"></select>
         </div>
         <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" id="update" class="btn btn-primary">Update</button>
     </form>
 
     <form id="pull" style="margin-bottom: 5%;">
+        <h1>Search Or Delete Train Schedule</h1>
         <div class="form-group">
             <label for="srch">Search Train By Name</label>
             <input type="search" class="form-control" id="srch" placeholder="Search">
         </div>
         <button type="search" id="search" class="btn btn-primary">Search</button>
+        <button type="submit" id="delete" class="btn btn-primary">Delete</button>
     </form>
 
     <div class="form-group">
