@@ -4,6 +4,23 @@ var trainTime = {
 
     i: 0,
 
+    auth: function() {
+        //need to create sign-in page separate from regular index page?  Pass email and password from this form into these functions.
+        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // ...
+          });
+
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+        });
+    },
+
     dropdowns: function() {
         for (var i=1; i<61; i++) {
             if (i<60) {
@@ -69,6 +86,8 @@ var trainTime = {
         })
     }
 };
+
+$(document).ready(function() {trainTime.auth()});
 
 $(document).ready(function() {trainTime.dropdowns()});
 
