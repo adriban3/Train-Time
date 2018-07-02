@@ -144,6 +144,8 @@ var trainTime = {
 
     delete: function(e) {
         e.preventDefault();
+        var toDelete = $("#srch").val().trim();
+        this.database.ref(toDelete).remove();
     }
 };
 
@@ -159,4 +161,4 @@ $(document).on("click", "#search", function(e) {trainTime.trainSearch(e, trainTi
 
 $(document).on("click", "#update", function(e) {trainTime.update(e)});
 
-$(document).on("click", "#delete"), function(e) {trainTime.delete(e)};
+$(document).on("click", "#delete", function(e) {trainTime.delete(e)});
