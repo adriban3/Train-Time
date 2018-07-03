@@ -61,6 +61,16 @@ var trainTime = {
         for (var i=1; i<24; i++) {
             $("#ftth").append("<option>" + i + "</option>");
         }
+
+        this.database.ref().once("value").then(function(snapshot) {
+
+            var trainNames = snapshot.val();
+            var propValue;
+
+            for (var propName in trainNames) {
+                $("#ttud").append("<option>" + propName + "</options");
+            }   
+        });
     },
 
     trainInput: function(event) {
@@ -108,7 +118,7 @@ var trainTime = {
         var srch = $("#srch").val().trim().toLowerCase();
 
         this.database.ref().once("value").then(function(snapshot){
-
+            
             if (snapshot.val().hasOwnProperty(srch)) {
                 var trainObj = snapshot.val()[srch];
                 var ftt = moment(trainObj.firstTrainTime, "H:mm");
@@ -149,11 +159,11 @@ var trainTime = {
     }
 };
 
+$(document).ready(function() {trainTime.dropdowns()});
+
 $(document).on("click", "#userCreate", function(e) {trainTime.newUser(e)});
 
 $(document).on("click", "#signIn", function(e) {trainTime.signIn(e)})
-
-$(document).ready(function() {trainTime.dropdowns()});
 
 $(document).on("click", "#submit", function(e) {trainTime.trainInput(e)});
 
