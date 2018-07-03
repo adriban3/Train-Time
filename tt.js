@@ -102,7 +102,8 @@ var trainTime = {
                     })
                     $("#tnnm").val('');
                     $("#dest").val('');
-                    $("#fitt").val('');
+                    $("#ftth").val('');
+                    $("#fttm").val('');
                     $("#freq").val('');
                 }
             })
@@ -113,9 +114,9 @@ var trainTime = {
         }
     },
 
-    trainSearch: function(event) {
+    trainSearch: function(event, tint) {
         event.preventDefault();
-        clearInterval(trainTime.int);
+        clearInterval(tint);
 
         var srch = $("#srch").val().trim().toLowerCase();
 
@@ -130,11 +131,13 @@ var trainTime = {
                 var nextTrain = ftt.add(trainhrs, 'm');
                 var fn = nextTrain.fromNow();
                 $("#info").html("Train: " + srch + "&#13;&#10;Destination: " + trainObj.destination + "&#13;&#10;First Train Time: " + trainObj.firstTrainTime + "&#13;&#10;Frequency: " + trainObj.frequency + "&#13;&#10;Next Train arrives " + fn);
-                trainTime.int = setInterval(function() {trainTime.dynamic(trainObj,srch)}, 1000*60)    
+                $("#srch").val('');
+                tint = setInterval(function() {trainTime.dynamic(trainObj,srch)}, 1000*60)    
             }
             
             else {
                 alert("There is no record of this train");
+                $("#srch").val('');
             }
         })
     },
@@ -152,6 +155,24 @@ var trainTime = {
 
     update: function(e) {
         e.preventDefault();
+        var ttud = $("#ttud").val().trim();
+        var desu = $("#desu").val().trim();
+        var fthu = $("#fthu").val().trim();
+        var ftmu = $("#ftmu").val().trim();
+        var frqu = $("#frqu").val().trim();
+        var fittu = fthu + ":" + ftmu;
+        if (ttud && desu && fthu && ftmu && frqu) {
+            trainTime.database.ref().child(ttud).set({
+                destination: desu,
+                firstTrainTime: fittu,
+                frequency: frqu, 
+            })
+            $("#ttud").val('');
+            $("#desu").val('');
+            $("#fthu").val('');
+            $("#ftmu").val('');
+            $("#frqu").val('');
+        }
     },
 
     updatePopulate: function(key) {
@@ -161,10 +182,13 @@ var trainTime = {
         })
     },
 
-    delete: function(e) {
+    delete: function(e, tint) {
         e.preventDefault();
         var toDelete = $("#srch").val().trim();
         this.database.ref(toDelete).remove();
+        $("#srch").val('');
+        $("#info").val('');
+        clearInterval(tint);
     }
 };
 
@@ -180,6 +204,6 @@ $(document).on("click", "#search", function(e) {trainTime.trainSearch(e, trainTi
 
 $(document).on("click", "#update", function(e) {trainTime.update(e)});
 
-$(document).on("click", "#delete", function(e) {trainTime.delete(e)});
+$(document).on("click", "#delete", function(e) {trainTime.delete(e, trainTime.int)});
 
 $(document).on("change", "#ttud", function() {trainTime.updatePopulate($(this).val())})
