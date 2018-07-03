@@ -53,19 +53,21 @@ var trainTime = {
     dropdowns: function() {
         for (var i=1; i<61; i++) {
             if (i<60) {
-                $("#fttm").append("<option>" + i + "</option");
+                $("#fttm").append("<option>" + i + "</option>");
+                $("#ftmu").append("<option>" + i + "</option>");
             }
             $("#freq").append("<option>" + i + "</option>");
+            $("#frqu").append("<option>" + i + "</option>");
         }
 
         for (var i=1; i<24; i++) {
             $("#ftth").append("<option>" + i + "</option>");
+            $("#fthu").append("<option>" + i + "</option>");
         }
 
         this.database.ref().once("value").then(function(snapshot) {
 
             var trainNames = snapshot.val();
-            var propValue;
 
             for (var propName in trainNames) {
                 $("#ttud").append("<option>" + propName + "</options");
@@ -152,6 +154,13 @@ var trainTime = {
         e.preventDefault();
     },
 
+    updatePopulate: function(key) {
+        this.database.ref().once("value").then(function(snapshot) {
+            $("#desu").val(snapshot.val()[key].destination);
+            $("#fttu").val(snapshot.val()[key].firstTrainTime + ", " + snapshot.val()[key].frequency + " min");
+        })
+    },
+
     delete: function(e) {
         e.preventDefault();
         var toDelete = $("#srch").val().trim();
@@ -172,3 +181,5 @@ $(document).on("click", "#search", function(e) {trainTime.trainSearch(e, trainTi
 $(document).on("click", "#update", function(e) {trainTime.update(e)});
 
 $(document).on("click", "#delete", function(e) {trainTime.delete(e)});
+
+$(document).on("change", "#ttud", function() {trainTime.updatePopulate($(this).val())})
