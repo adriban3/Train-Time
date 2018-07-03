@@ -4,51 +4,51 @@ var trainTime = {
 
     int: "",
 
-    newUser: function(e) {
-        e.preventDefault();
-        //need to create sign-in page separate from regular index page?  Pass email and password from this form into these functions.
-        var email = $("#emla").val();
-        var password = $("#pass").val();
+    // newUser: function(e) {
+    //     e.preventDefault();
+    //     //need to create sign-in page separate from regular index page?  Pass email and password from this form into these functions.
+    //     var email = $("#emla").val();
+    //     var password = $("#pass").val();
 
-        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // ...
-            if (errorCode == 'auth/weak-password') {
-                alert('The password is too weak.');
-              } 
+    //     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+    //         // Handle Errors here.
+    //         var errorCode = error.code;
+    //         var errorMessage = error.message;
+    //         // ...
+    //         if (errorCode == 'auth/weak-password') {
+    //             alert('The password is too weak.');
+    //           } 
               
-            else {
-                alert(errorMessage);
-              }
+    //         else {
+    //             alert(errorMessage);
+    //           }
 
-            console.log(error);
-          });
-        },
+    //         console.log(error);
+    //       });
+    //     },
 
-    signIn: function(e) {
-        e.preventDefault();
-        var email = $("#emla2").val();
-        var password = $("#pass2").val();
+    // signIn: function(e) {
+    //     e.preventDefault();
+    //     var email = $("#emla2").val();
+    //     var password = $("#pass2").val();
 
-        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // ...
-        if (errorCode === 'auth/wrong-password') {
-            alert('Wrong password.');
-          } 
+    //     firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+    //     // Handle Errors here.
+    //     var errorCode = error.code;
+    //     var errorMessage = error.message;
+    //     // ...
+    //     if (errorCode === 'auth/wrong-password') {
+    //         alert('Wrong password.');
+    //       } 
           
-        else {
-            alert(errorMessage);
-          }
+    //     else {
+    //         alert(errorMessage);
+    //       }
 
-        console.log(error);
-        document.getElementById('quickstart-sign-in').disabled = false;
-        });
-    },
+    //     console.log(error);
+    //     document.getElementById('quickstart-sign-in').disabled = false;
+    //     });
+    // },
 
     dropdowns: function() {
         for (var i=1; i<61; i++) {
@@ -73,6 +73,13 @@ var trainTime = {
                 $("#ttud").append("<option>" + propName + "</options");
             }   
         });
+
+        ui.start('#firebaseui-auth-container', {
+            signInOptions: [
+              firebase.auth.EmailAuthProvider.PROVIDER_ID
+            ],
+            // Other config options...
+          });
     },
 
     trainInput: function(event) {
@@ -187,16 +194,16 @@ var trainTime = {
         var toDelete = $("#srch").val().trim();
         this.database.ref(toDelete).remove();
         $("#srch").val('');
-        $("#info").val('');
+        $("#info").html('');
         clearInterval(tint);
     }
 };
 
 $(document).ready(function() {trainTime.dropdowns()});
 
-$(document).on("click", "#userCreate", function(e) {trainTime.newUser(e)});
+// $(document).on("click", "#userCreate", function(e) {trainTime.newUser(e)});
 
-$(document).on("click", "#signIn", function(e) {trainTime.signIn(e)})
+// $(document).on("click", "#signIn", function(e) {trainTime.signIn(e)})
 
 $(document).on("click", "#submit", function(e) {trainTime.trainInput(e)});
 
