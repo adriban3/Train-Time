@@ -118,7 +118,7 @@ var trainTime = {
                 var nextTrain = ftt.add(trainhrs, 'm');
                 var fn = nextTrain.fromNow();
                 $("#info").html("Train: " + srch + "&#13;&#10;Destination: " + trainObj.destination + "&#13;&#10;First Train Time: " + trainObj.firstTrainTime + "&#13;&#10;Frequency: " + trainObj.frequency + "&#13;&#10;Next Train arrives " + fn);
-                trainTime.int = setInterval(function() {trainTime.dynamic(trainObj)}, 1000*3)    
+                trainTime.int = setInterval(function() {trainTime.dynamic(trainObj,srch)}, 1000*60)    
             }
             
             else {
@@ -127,7 +127,7 @@ var trainTime = {
         })
     },
 
-    dynamic: function(obj) {
+    dynamic: function(obj,srch) {
         console.log(obj);
         var ftt = moment(obj.firstTrainTime, "H:mm");
         var diff = moment().diff(ftt, "minutes", true);
