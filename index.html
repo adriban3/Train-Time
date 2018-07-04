@@ -13,12 +13,32 @@
 </head>
 <body>
 
+        <nav id="nav" class="navbar navbar-expand-lg navbar-dark" style="background-color: black">
+                <a class="navbar-brand" href="#"><h5>Train Time</h5></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">New</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">Search/Delete</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">Update</button>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+
     <div id="accordion">
         <div class="card">
           <div class="card-header" id="headingOne">
             <h5 class="mb-0">
               <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Add New Train
+                <h4>Add New Train</h4>
               </button>
             </h5>
           </div>
@@ -59,7 +79,7 @@
           <div class="card-header" id="headingTwo">
             <h5 class="mb-0">
               <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Search Trains
+                <h4>Search Trains</h4>
               </button>
             </h5>
           </div>
@@ -86,7 +106,7 @@
           <div class="card-header" id="headingThree">
             <h5 class="mb-0">
               <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                Update Existing Train
+                <h4>Update Existing Train</h4>
               </button>
             </h5>
           </div>

@@ -1,0 +1,25 @@
+body {
+    font-family: monospace;
+    color: green;
+}
+
+h4, h5 {
+    color: green;
+}
+
+.card-header {
+    background-color: black;
+}
+
+.btn-primary {
+    background-color: black;
+    color: green;
+}
+
+.btn-link {
+    color:green;
+}
+
+.card-body {
+    color: green;
+}
